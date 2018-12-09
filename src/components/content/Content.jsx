@@ -5,16 +5,15 @@ import { CONTEXT } from '../../commons/Consts';
 import './Content.css';
 
 const Content = props => {
-  const { context } = props;
+  const { contextType } = props;
   return (
     <main className="content-area" >
-      { context === CONTEXT.characters.id ? <CharactersContent /> : null }
+      { contextType === CONTEXT.characters.id ? <CharactersContent /> : null }
     </main>
   );
 };
 
 Content.propTypes = {
-  context: PropTypes.string
-};
+  contextType: PropTypes.string};
 
 export default Content;

@@ -10,7 +10,7 @@ const App = props => {
     <Fragment>
       <Header />
       <SideMenu />
-      <Content context={context} />
+      <Content contextType={context} />
     </Fragment>
   );
 };

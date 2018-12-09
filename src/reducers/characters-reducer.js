@@ -8,7 +8,7 @@ const initialState = {
     offset: 0,
     total: 0
   },
-  isFetching: false
+  isFetching: true
 };
 
 export default (state = initialState, action) => {

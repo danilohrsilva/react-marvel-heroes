@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
+import Loading from '../../loading/Loading';
 import { getAllCharacters } from '../../../actions/characters-actions';
 import './CharactersContent.css';
 
@@ -56,11 +57,12 @@ class CharactersContent extends Component {
   }
 
   render() {
-    const { characters } = this.props;
+    const { characters, isFetching } = this.props;
     return (
-      <section className="characters-content" >
-        { characters.map((char, index) => <CharacterCard key={index} character={char} />) }
-      </section>
+      isFetching ? <Loading /> :
+        <section className="characters-content" >
+          { characters.map((char, index) => <CharacterCard key={index} character={char} />) }
+        </section>
     );
   }
 }
