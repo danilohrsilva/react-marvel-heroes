@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { doGet } from '../../../commons/Connection';
+import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
+import { getAllCharacters } from '../../../actions/characters-actions';
 import './CharactersContent.css';
 
 const LIMIT = 50;
@@ -38,10 +39,6 @@ class CharactersContent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      characters : []
-    };
-    
     this.getCharacters = this.getCharacters.bind(this);
   }
 
@@ -49,17 +46,17 @@ class CharactersContent extends Component {
     this.getCharacters(0);
   }
 
-  getCharacters(page) {
+  getCharacters(offset) {
+    const { getAllCharacters } = this.props;
     const params = {
-      limit: LIMIT
+      limit: LIMIT,
+      offset
     };
-    doGet('/v1/public/characters', params)
-      .then(({ data: { results }}) => this.setState({ characters: results }))
-      .catch(err => window.console.error(err));
+    getAllCharacters(params);
   }
 
   render() {
-    const { characters } = this.state;
+    const { characters } = this.props;
     return (
       <section className="characters-content" >
         { characters.map((char, index) => <CharacterCard key={index} character={char} />) }
@@ -68,4 +65,31 @@ class CharactersContent extends Component {
   }
 }
 
-export default CharactersContent;
+CharactersContent.propTypes = {
+  characters: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    thumbnail: PropTypes.shape({
+      path: PropTypes.string,
+      extension: PropTypes.string,
+    }).isRequired
+  })).isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  pagin: PropTypes.shape({
+    limit: PropTypes.number.isRequired,
+    offset: PropTypes.number.isRequired,
+    total: PropTypes.number.isRequired
+  })
+};
+
+const mapStateToProps = ( { characters: { characters, isFetching, paging } }) => ({
+  characters,
+  isFetching,
+  paging
+});
+
+const mapDispatchToProps = dispatch => ({
+  getAllCharacters: page => dispatch(getAllCharacters(page))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CharactersContent);
