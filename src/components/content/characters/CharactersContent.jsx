@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Axios from 'axios';
+import { doGet } from '../../../commons/Connection';
 import { Link } from "react-router-dom";
+import './CharactersContent.css';
+
+const LIMIT = 50;
 
 const CharacterCard = props => {
   const { character: { id, name, description, thumbnail: { path, extension } } } = props;
   return (
-    <article>
+    <article className="character-card">
       <Link to={`/characters/${id}`}>
-        <figure>
-          <img src={`${path}.${extension}`} alt={description} />
+        <figure className="character-figure" >
+          <img className="character-image" src={`${path}.${extension}`} alt={description} />
         </figure>
         <h3>
           { name }
@@ -38,20 +41,29 @@ class CharactersContent extends Component {
     this.state = {
       characters : []
     };
+    
+    this.getCharacters = this.getCharacters.bind(this);
   }
 
   componentDidMount() {
-    Axios.get('http://www.mocky.io/v2/5c0c71282f00005e00e2e450').then(resp => (
-      this.setState({
-        characters: resp.data.characters
-      })
-    ));
+    this.getCharacters(0);
+  }
+
+  getCharacters(page) {
+    const params = {
+      limit: LIMIT
+    };
+    doGet('/v1/public/characters', params)
+      .then(({ data: { results }}) => this.setState({ characters: results }))
+      .catch(err => window.console.error(err));
   }
 
   render() {
     const { characters } = this.state;
     return (
-      characters.map((char, index) => <CharacterCard key={index} character={char} />)
+      <section className="characters-content" >
+        { characters.map((char, index) => <CharacterCard key={index} character={char} />) }
+      </section>
     );
   }
 }

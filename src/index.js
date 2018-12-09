@@ -9,7 +9,8 @@ ReactDOM.render(
   <Router>
       <Switch>
           <Route path="/" exact={true} component={App} />
-          <Route path="/:context" exact={true} component={App} />
+          <Route path="/:context" component={App} />
+          <Route path="/:context/:id" exact={true} component={App} />
       </Switch>
   </ Router> ,document.getElementById('root'));
 
