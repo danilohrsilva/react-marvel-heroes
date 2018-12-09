@@ -1,0 +1,17 @@
+.marvel-header {
+  background-color: #21376D;
+  height: 70px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.marvel-header .header-logo {
+  height: 60px;
+  padding: 5px 15px;
+}
+
+.marvel-header .header-figure {
+  margin: 0;
+}

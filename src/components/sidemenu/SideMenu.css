@@ -1,0 +1,15 @@
+.side-menu {
+  background-color: #ECEFF1;
+  box-shadow: 3px 3px 3px #888888;
+  height: 100%;
+  margin: 0;
+  position: fixed;
+  top: 70;
+  padding-top: 10px;
+  width: 200px;
+}
+
+.side-menu ul .menu-item {
+  height: 35px;
+  list-style: none;
+}

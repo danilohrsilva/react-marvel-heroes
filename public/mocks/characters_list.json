@@ -1,0 +1,31 @@
+{
+  "characters": [
+    {
+      "id": 1000,
+      "name": "Iron Man - Tony Stark",
+      "description": "Test 1",
+      "thumbnail": {
+        "path": "https://vignette.wikia.nocookie.net/avengers-assemble/images/d/df/Iron_Man_Mk_L_2.png/revision/latest?cb=20170615182614",
+        "extension": "png"
+      }
+    },
+    {
+      "id": 1001,
+      "name": "Captain America - Steve Rogers",
+      "description": "Test 2",
+      "thumbnail": {
+        "path": "",
+        "extension": ""
+      }
+    },
+    {
+      "id": 1003,
+      "name": "Spider Man - Peter Parker",
+      "description": "Test 3",
+      "thumbnail": {
+        "path": "",
+        "extension": ""
+      }
+    }
+  ]
+}
