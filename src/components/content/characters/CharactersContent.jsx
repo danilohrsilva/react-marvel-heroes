@@ -46,7 +46,7 @@ CharactersContent.propTypes = {
     }).isRequired
   })).isRequired,
   isFetching: PropTypes.bool.isRequired,
-  pagin: PropTypes.shape({
+  paging: PropTypes.shape({
     limit: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired,
     total: PropTypes.number.isRequired
