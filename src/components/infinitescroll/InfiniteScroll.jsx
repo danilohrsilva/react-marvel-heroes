@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import Loading from '../loading/Loading';
 
 const LIMIT = 20;
@@ -9,9 +9,9 @@ const getParams = offset => ({
   offset
 });
 
-const withInfiniteScroll = Component => (
+const withInfiniteScroll = WrappedComponent => (
 
-  class WithInfiniteScroll extends React.Component {
+  class WithInfiniteScroll extends Component {
 
     componentDidMount = () => {
       const { loadData } = this.props;
@@ -36,7 +36,7 @@ const withInfiniteScroll = Component => (
       const { isFetching } = this.props;
       return (
         <Fragment>
-          <Component { ...this.props } />
+          <WrappedComponent { ...this.props } />
           { isFetching && <Loading /> }
         </Fragment>
       );
