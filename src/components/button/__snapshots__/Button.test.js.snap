@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Given the <Button /> component with all params When it renders, then Should match the snapshot 1`] = `
+<button
+  className="button-class"
+  disabled={false}
+  onClick={[MockFunction]}
+>
+  <image
+    className="button-class-icon"
+    src="button-icon"
+  />
+  Click Me
+</button>
+`;
