@@ -1,28 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import Loading from '../../loading/Loading';
 import { getAllCharacters } from '../../../actions/characters-actions';
+import { withInfiniteScroll } from '../../infinitescroll/InfiniteScroll';
 import './CharactersContent.css';
 
-const LIMIT = 50;
-
-const CharacterCard = props => {
-  const { character: { id, name, description, thumbnail: { path, extension } } } = props;
-  return (
-    <article className="character-card">
-      <Link to={`/characters/${id}`}>
-        <figure className="character-figure" >
-          <img className="character-image" src={`${path}.${extension}`} alt={description} />
-        </figure>
-        <h3>
-          { name }
-        </h3>
-      </Link>
-    </article>
-  );
-};
+const CharacterCard = ({ character: { id, name, description, thumbnail: { path, extension } } }) => (
+  <article className="character-card">
+    <Link to={`/characters/${id}`}>
+      <figure className="character-figure" >
+        <img className="character-image" src={`${path}.${extension}`} alt={description} />
+      </figure>
+      <h3>
+        { name }
+      </h3>
+    </Link>
+  </article>
+);
 
 CharacterCard.propTypes = {
   character: PropTypes.shape({
@@ -35,37 +30,11 @@ CharacterCard.propTypes = {
   })
 };
 
-class CharactersContent extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.getCharacters = this.getCharacters.bind(this);
-  }
-
-  componentDidMount() {
-    this.getCharacters(0);
-  }
-
-  getCharacters(offset) {
-    const { getAllCharacters } = this.props;
-    const params = {
-      limit: LIMIT,
-      offset
-    };
-    getAllCharacters(params);
-  }
-
-  render() {
-    const { characters, isFetching } = this.props;
-    return (
-      isFetching ? <Loading /> :
-        <section className="characters-content" >
-          { characters.map((char, index) => <CharacterCard key={index} character={char} />) }
-        </section>
-    );
-  }
-}
+const CharactersContent = ({ characters }) => (
+  <section className="characters-content" >
+  { characters.map((char, index) => <CharacterCard key={index} character={char} />) }
+</section>
+);
 
 CharactersContent.propTypes = {
   characters: PropTypes.arrayOf(PropTypes.shape({
@@ -91,7 +60,7 @@ const mapStateToProps = ( { characters: { characters, isFetching, paging } }) =>
 });
 
 const mapDispatchToProps = dispatch => ({
-  getAllCharacters: page => dispatch(getAllCharacters(page))
+  loadData: page => dispatch(getAllCharacters(page))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CharactersContent);
+export default connect(mapStateToProps, mapDispatchToProps)(withInfiniteScroll(CharactersContent));

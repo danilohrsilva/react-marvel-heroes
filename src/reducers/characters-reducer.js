@@ -1,5 +1,5 @@
-import * as types from '../actions/action-types';
 import update from 'immutability-helper';
+import * as types from '../actions/action-types';
 
 const initialState = {
   characters: [],
@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
     const { json: { data } } = action;
     if (data.offset === 0) {
       return update(state, {
-        characters: {$push: data.results},
+        characters: {$set: data.results},
         paging: {
           limit: {$set: data.limit},
           offset: {$set: data.offset},
@@ -32,7 +32,7 @@ export default (state = initialState, action) => {
       });
     }
     return update(state, {
-      characters: {$set: data.results},
+      characters: {$push: data.results},
       paging: {
         limit: {$set: data.limit},
         offset: {$set: data.offset},

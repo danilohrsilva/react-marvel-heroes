@@ -9,6 +9,7 @@ const receiveAllCharacters = json => ({
 
 export const getAllCharacters = params => {
   return dispatch => {
+    dispatch({ type: types.START_GET_CHARACTERS });
     doGet(services.GET_ALL_CHARACTERS, params)
       .then(json =>  dispatch(receiveAllCharacters(json, types.END_GET_CHARACTERS)))
       .catch(err => window.console.error(err));
