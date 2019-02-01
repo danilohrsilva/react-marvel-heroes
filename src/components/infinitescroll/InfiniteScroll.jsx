@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import Loading from '../loading/Loading';
 
 const LIMIT = 20;
+const FIRST_PAGE = 0;
 
 const getParams = offset => ({
   limit: LIMIT,
@@ -15,7 +16,7 @@ const withInfiniteScroll = Component => (
     componentDidMount = () => {
       const { loadData } = this.props;
       window.addEventListener('scroll', this.onScroll, false);
-      loadData(getParams(0));
+      loadData(getParams(FIRST_PAGE));
     }
 
     componentWillUnmount = () => {
